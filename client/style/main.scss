@@ -1,12 +1,38 @@
 @import 'clementine.css';
-
 $test-color: #444;
-
 p.info {
   padding-left: 20px;
   color: $test-color;
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.form {
+  padding: 20px;
+  background-color: white;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.center {
+  width: 90%;
+  margin: 0 auto;
+}
+
+input[type=text],
+input[type=password] {
+  width: 100%;
+  font-size: 15px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  width: 100%;
 }

@@ -8,7 +8,7 @@ class Top extends React.Component {
         this.setViewLogin = this.setViewLogin.bind(this)
         this.setViewSignup = this.setViewSignup.bind(this)
         this.state = {
-            view: 'start'
+            view: ''
         }
     }
     setViewLogin() {
@@ -28,6 +28,7 @@ class Top extends React.Component {
                     showLogin={this.setViewLogin} 
                     showSignup={this.setViewSignup}
                 />
+                <br/><br/><br/>
                 <View 
                     view={this.state.view}
                 /> 
