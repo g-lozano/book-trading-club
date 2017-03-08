@@ -33,8 +33,8 @@ export const createRoutes = (store) => {
       component: Main },
     childRoutes: [
       { path: 'main', component: Main, onEnterAuth },
-      { path: 'profile', component: Profile, onEnterAuth },
-      { path: 'login', component: Login, onEnterUnauth },
+      // { path: 'profile', component: Profile, onEnterAuth },
+      // { path: 'login', component: Login, onEnterUnauth },
     ],
   };
 };

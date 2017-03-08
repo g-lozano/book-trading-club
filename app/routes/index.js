@@ -26,7 +26,8 @@ export default function (app, passport) {
   app.route('/auth/twitter/callback')
     .get(passport.authenticate('twitter', {
       successRedirect: '/',
-      failureRedirect: '/login',
+      // failureRedirect: '/login',
+      failureRedirect: '/main',
     }));
 
   app.route('/logout')
