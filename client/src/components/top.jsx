@@ -8,18 +8,32 @@ class Top extends React.Component {
         this.setViewLogin = this.setViewLogin.bind(this)
         this.setViewSignup = this.setViewSignup.bind(this)
         this.state = {
-            view: ''
+            view: 'login'
         }
     }
     setViewLogin() {
+        if (document.getElementById('new_username')) {
+            document.getElementById('new_username').value = ''
+            document.getElementById('new_password1').value = ''
+        }
         this.setState({
             view: 'login'
         })
     }
     setViewSignup() {
+        if (document.getElementById('username')) {
+            document.getElementById('username').value = ''
+            document.getElementById('password').value = ''
+        }
         this.setState({
             view: 'signup'
         })
+    }
+    login(username, password) {
+        
+    }
+    signup(username, password) {
+        
     }
     render() {
         return (
@@ -31,6 +45,7 @@ class Top extends React.Component {
                 <br/><br/><br/>
                 <View 
                     view={this.state.view}
+                    login={this.login}
                 /> 
             </div>
         )
