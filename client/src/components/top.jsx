@@ -30,10 +30,10 @@ class Top extends React.Component {
         })
     }
     login(username, password) {
-        
+
     }
     signup(username, password) {
-        
+
     }
     render() {
         return (

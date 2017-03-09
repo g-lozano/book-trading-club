@@ -5,6 +5,9 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import session from 'express-session';
 
+var bodyParser = require("body-parser")
+var bcrypt = require('bcrypt')
+
 const env = process.env.NODE_ENV !== 'production' ? require('dotenv') : null;
 if (env) env.load();
 

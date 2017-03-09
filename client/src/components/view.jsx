@@ -62,7 +62,7 @@ class View extends React.Component {
                 <input onKeyPress={this.handleLoginKeyPress} id="username" type="text" className="center" placeholder="Username"/>
                 <input onKeyPress={this.handleLoginKeyPress} id="password" type="password" className="center" placeholder="Password"/>
                 <button onClick={this.validateLogin}  className="mdl-button mdl-js-button mdl-button--primary submit-button">Login</button>
-                <div>{this.state.login_message}</div>
+                <div className="message">{this.state.login_message}</div>
             </div>
         )
     }
@@ -73,7 +73,7 @@ class View extends React.Component {
                 <input onKeyPress={this.handleSignupKeyPress} id="new_password1" type="password" className="center" placeholder="New Password"/>
                 <input onKeyPress={this.handleSignupKeyPress} id="new_password2" type="password" className="center" placeholder="Retype New Password"/>
                 <button onClick={this.validateSignup} className="mdl-button mdl-js-button mdl-button--primary submit-button">Sign Up</button>
-                <div>{this.state.signup_message}</div>
+                <div className="message">{this.state.signup_message}</div>
             </div>
         )
     }
