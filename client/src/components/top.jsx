@@ -47,6 +47,7 @@ class Top extends React.Component {
         })
     }
     login(username, password) {
+        this.setState({login_message:''})
         axios.post('/login', {
                 username: username,
                 password: password
