@@ -12,11 +12,30 @@ class Top extends React.Component {
         this.setSignupMessage = this.setSignupMessage.bind(this)
         this.login = this.login.bind(this)
         this.signup = this.signup.bind(this)
+        this.logout = this.logout.bind(this)
+        this.setLoggedOut = this.setLoggedOut.bind(this)
+        this.setLoggedIn = this.setLoggedIn.bind(this)
+        this.setViewMyBooks = this.setViewMyBooks.bind(this)
+        this.setViewAllBooks = this.setViewAllBooks.bind(this)
+        this.setViewAccount = this.setViewAccount.bind(this)
+        this.updateAccount = this.updateAccount.bind(this)
+    
         this.state = {
             view: 'login',
             login_message: '',
-            signup_message: ''
+            signup_message: '',
+            nav_view: 'logged_out',
         }
+    }
+    setLoggedOut() {
+        this.setState({
+            nav_view: 'logged_out'
+        })
+    }
+    setLoggedIn() {
+        this.setState({
+            nav_view: 'logged_in'
+        })
     }
     setViewLogin() {
         if (document.getElementById('new_username')) {
@@ -36,6 +55,24 @@ class Top extends React.Component {
             view: 'signup'
         })
     }
+    setViewMyBooks() {
+        this.setState({
+            view: 'my_books'
+        })
+    }
+    setViewAllBooks() {
+        this.setState({
+            view: 'all_books'
+        })
+    }
+    setViewAccount() {
+        this.setState({
+            view: 'account'
+        })
+    }
+    updateAccount() {
+        
+    }
     setLoginMessage(message) {
         this.setState({
             login_message: message
@@ -53,8 +90,9 @@ class Top extends React.Component {
                 password: password
             })
             .then((response) => {
-                if (!response.data.error)
-                    console.log(JSON.stringify(response.data))
+                if (!response.data.error) {
+                    this.setLoggedIn()
+                }
                 else
                     this.setState({login_message:response.data.msg})
                 
@@ -78,12 +116,24 @@ class Top extends React.Component {
                 console.log(error);
             });
     }
+    logout() {
+        this.setState({
+            nav_view:'logged_out',
+            view: 'login'
+        })
+    }
     render() {
+        
         return (
             <div>
-                <Header view={this.state.view}
-                    showLogin={this.setViewLogin} 
-                    showSignup={this.setViewSignup}
+                <Header
+                    nav_view={this.state.nav_view}
+                    setViewLogin={this.setViewLogin} 
+                    setViewSignup={this.setViewSignup}
+                    setViewMyBooks={this.setViewMyBooks}
+                    setViewAllBooks={this.setViewAllBooks}
+                    setViewAccount={this.setViewAccount}
+                    logout={this.logout}
                 />
                 <br/><br/><br/>
                 <View 
@@ -94,6 +144,8 @@ class Top extends React.Component {
                     signup_message={this.state.signup_message}
                     login={this.login}
                     signup={this.signup}
+                    setLoggedIn={this.setLoggedIn}
+                    setLoggedOut={this.setLoggedOut}
                 /> 
             </div>
         )

@@ -8,6 +8,18 @@ class View extends React.Component {
         this.handleLoginKeyPress = this.handleLoginKeyPress.bind(this)
         this.handleSignupKeyPress = this.handleSignupKeyPress.bind(this)
         this.getLoginForm = this.getLoginForm.bind(this)
+        this.getMyBooks = this.getMyBooks.bind(this)
+        this.getAllBooks = this.getAllBooks.bind(this)
+        this.getAccount = this.getAccount.bind(this)
+    }
+    getMyBooks() {
+        return 'my books'
+    }
+    getAllBooks() {
+        return 'all books'
+    }
+    getAccount() {
+        return 'account'
     }
     validateLogin() {
         var username = document.getElementById('username').value
@@ -66,10 +78,20 @@ class View extends React.Component {
     }
     render() {
         var view = ''
-        if (this.props.view == 'login')
-            view = this.getLoginForm()
-        else if (this.props.view == 'signup')
-            view = this.getSignupForm()
+        switch(this.props.view) {
+            case 'login': 
+                view = this.getLoginForm(); break;
+            case 'signup':
+                view = this.getSignupForm(); break;
+            case 'my_books':
+                view = this.getMyBooks(); break;
+            case 'all_books':
+                view = this.getAllBooks(); break;
+            case 'account':
+                view = this.getAccount(); break;
+            default:
+                view = this.getLoginForm(); break;
+        }
             
         return (
             <div id="layout" className="center">
