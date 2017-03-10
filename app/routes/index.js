@@ -38,7 +38,7 @@ export default function (app, passport) {
   app.route('/login')
     .post(traderFuncs.login)
   
-  app.route('signup')
+  app.route('/signup')
     .post(traderFuncs.signup)
 
   app.route('/logout')

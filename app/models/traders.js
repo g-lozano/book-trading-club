@@ -7,6 +7,7 @@ const Trader = new Schema({
     last_name: String,
     city: String,
     state: String,
+    hash: String,
 });
 
 export default mongoose.model('Trader', Trader);

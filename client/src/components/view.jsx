@@ -8,24 +8,15 @@ class View extends React.Component {
         this.handleLoginKeyPress = this.handleLoginKeyPress.bind(this)
         this.handleSignupKeyPress = this.handleSignupKeyPress.bind(this)
         this.getLoginForm = this.getLoginForm.bind(this)
-        this.state = {
-            login_message: '',
-            signup_message: '',
-        }
     }
     validateLogin() {
         var username = document.getElementById('username').value
         var password = document.getElementById('password').value
         if (username && password){
-            this.setState({
-                login_message: ''
-            })
             this.props.login(username, password)
         }
         else {
-            this.setState({
-                login_message: 'Missing field.'
-            })
+            this.props.setLoginMessage('Missing field')
         }
     }
     validateSignup() {
@@ -34,16 +25,12 @@ class View extends React.Component {
         var new_password2 = document.getElementById('new_password2').value
         if (new_username && new_password1 && new_password2) {
             if (new_password1 == new_password2)
-                this.props.signup(new_username && new_password1)
+                this.props.signup(new_username, new_password1)
             else
-                this.setState({
-                    signup_message: 'Passwords do not match.'
-                })
+                this.props.setSignupMessage('Passwords do not match.')
         }
         else {
-            this.setState({
-                signup_message: 'Missing field.'
-            })
+            this.props.setSignupMessage('Missing field.')
         }
     }
     handleLoginKeyPress(e) {
@@ -62,7 +49,7 @@ class View extends React.Component {
                 <input onKeyPress={this.handleLoginKeyPress} id="username" type="text" className="center" placeholder="Username"/>
                 <input onKeyPress={this.handleLoginKeyPress} id="password" type="password" className="center" placeholder="Password"/>
                 <button onClick={this.validateLogin}  className="mdl-button mdl-js-button mdl-button--primary submit-button">Login</button>
-                <div className="message">{this.state.login_message}</div>
+                <div className="message">{this.props.login_message}</div>
             </div>
         )
     }
@@ -73,7 +60,7 @@ class View extends React.Component {
                 <input onKeyPress={this.handleSignupKeyPress} id="new_password1" type="password" className="center" placeholder="New Password"/>
                 <input onKeyPress={this.handleSignupKeyPress} id="new_password2" type="password" className="center" placeholder="Retype New Password"/>
                 <button onClick={this.validateSignup} className="mdl-button mdl-js-button mdl-button--primary submit-button">Sign Up</button>
-                <div className="message">{this.state.signup_message}</div>
+                <div className="message">{this.props.signup_message}</div>
             </div>
         )
     }

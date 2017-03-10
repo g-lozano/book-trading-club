@@ -22,6 +22,7 @@ mongoose.connect(process.env.MONGODB_URI ||
   process.env.MONGO_URI || process.env.MONGOLAB_URI);
 
 app.use('/', express.static(`${process.cwd()}/public`));
+app.use( bodyParser.json() );
 
 const configHotReloading =
   process.env.NODE_ENV === 'development' && !process.env.DISABLE_WEBPACK
