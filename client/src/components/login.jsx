@@ -1,15 +1,11 @@
 
 import React from 'react';
 
-export default () => (
-  <div className="container">
-    <div className="login">
-      <img alt="logo" src="img/clementine_150.png" />
-      <br />
-      <p className="clementine-text">Clementine-React-Redux</p>
-      <a href="auth/twitter" className="btn">
-        Login
-      </a>
-    </div>
+export default ({handleLoginKeyPress, validateLogin, login_message}) => (
+  <div id="login_form" className="form">
+    <input onKeyPress={handleLoginKeyPress} id="username" type="text" className="center" placeholder="Username"/>
+    <input onKeyPress={handleLoginKeyPress} id="password" type="password" className="center" placeholder="Password"/>
+    <button onClick={validateLogin}  className="mdl-button mdl-js-button mdl-button--primary submit-button">Login</button>
+    <div className="message">{login_message}</div>
   </div>
 );

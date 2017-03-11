@@ -1,4 +1,6 @@
 import React from 'react';
+import Login from './login.jsx'
+import Signup from './signup.jsx'
 
 class View extends React.Component {
     constructor(props) {
@@ -56,28 +58,25 @@ class View extends React.Component {
         }
     }
     getLoginForm() {
-        return (
-            <div id="login_form" className="form">
-                <input onKeyPress={this.handleLoginKeyPress} id="username" type="text" className="center" placeholder="Username"/>
-                <input onKeyPress={this.handleLoginKeyPress} id="password" type="password" className="center" placeholder="Password"/>
-                <button onClick={this.validateLogin}  className="mdl-button mdl-js-button mdl-button--primary submit-button">Login</button>
-                <div className="message">{this.props.login_message}</div>
-            </div>
+        return(
+            <Login
+                handleLoginKeyPress={this.handleLoginKeyPress}
+                validateLogin={this.validateLogin}
+                login_message={this.props.login_message}
+            />    
         )
     }
     getSignupForm() {
         return (
-            <div id="singup_form" className="form">
-                <input onKeyPress={this.handleSignupKeyPress} id="new_username" type="text" className="center" placeholder="New Username"/>
-                <input onKeyPress={this.handleSignupKeyPress} id="new_password1" type="password" className="center" placeholder="New Password"/>
-                <input onKeyPress={this.handleSignupKeyPress} id="new_password2" type="password" className="center" placeholder="Retype New Password"/>
-                <button onClick={this.validateSignup} className="mdl-button mdl-js-button mdl-button--primary submit-button">Sign Up</button>
-                <div className="message">{this.props.signup_message}</div>
-            </div>
+            <Signup
+                handleSignupKeyPress={this.handleSignupKeyPress}
+                validateSignup={this.validateSignup}
+                signup_message={this.props.signup_message}
+            />
         )
     }
     render() {
-        var view = ''
+        var view = []
         switch(this.props.view) {
             case 'login': 
                 view = this.getLoginForm(); break;
@@ -96,7 +95,9 @@ class View extends React.Component {
         return (
             <div id="layout" className="center">
                 <div className="mdl-layout__content center">
-                    <div className="page-content center">{view}</div>
+                    <div className="page-content center">
+                        {view}
+                    </div>
                 </div> 
             </div>
         )

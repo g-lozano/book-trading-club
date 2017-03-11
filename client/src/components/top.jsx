@@ -29,28 +29,25 @@ class Top extends React.Component {
     }
     setLoggedOut() {
         this.setState({
-            nav_view: 'logged_out'
+            nav_view: 'logged_out',
+            login_message: '',
+            signup_message: ''
         })
     }
     setLoggedIn() {
         this.setState({
-            nav_view: 'logged_in'
+            nav_view: 'logged_in',
+            view: 'my_books'
         })
     }
     setViewLogin() {
-        if (document.getElementById('new_username')) {
-            document.getElementById('new_username').value = ''
-            document.getElementById('new_password1').value = ''
-        }
+        this.clearInputs()
         this.setState({
             view: 'login'
         })
     }
     setViewSignup() {
-        if (document.getElementById('username')) {
-            document.getElementById('username').value = ''
-            document.getElementById('password').value = ''
-        }
+        this.clearInputs()
         this.setState({
             view: 'signup'
         })
@@ -107,8 +104,11 @@ class Top extends React.Component {
                 password: password
             })
             .then((response) => {
-                if (!response.data.error)
+                if (!response.data.error) {
                     console.log(JSON.stringify(response.data))
+                    this.clearInputs()
+                    this.setLoggedIn()
+                }
                 else
                     this.setState({signup_message:response.data.msg})
             })
@@ -117,10 +117,22 @@ class Top extends React.Component {
             });
     }
     logout() {
+        this.clearInputs()
         this.setState({
             nav_view:'logged_out',
-            view: 'login'
+            view: 'login',
         })
+    }
+    clearInputs() {
+        if (document.getElementById('new_username')) {
+            document.getElementById('new_username').value = ''
+            document.getElementById('new_password1').value = ''
+            document.getElementById('new_password2').value = ''
+        }
+        if (document.getElementById('username')) {
+            document.getElementById('username').value = ''
+            document.getElementById('password').value = ''
+        }
     }
     render() {
         
