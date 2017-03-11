@@ -1,6 +1,9 @@
 import React from 'react';
 import Login from './login.jsx'
 import Signup from './signup.jsx'
+import AllBooks from './allbooks.jsx'
+import MyBooks from './mybooks.jsx'
+import Account from './account.jsx'
 
 class View extends React.Component {
     constructor(props) {
@@ -13,15 +16,27 @@ class View extends React.Component {
         this.getMyBooks = this.getMyBooks.bind(this)
         this.getAllBooks = this.getAllBooks.bind(this)
         this.getAccount = this.getAccount.bind(this)
+        this.handleAccountKeyPress = this.handleAccountKeyPress.bind(this)
     }
     getMyBooks() {
-        return 'my books'
+        return (
+            <MyBooks
+            />
+        )
     }
     getAllBooks() {
-        return 'all books'
+        return (
+            <AllBooks
+            />
+        )
     }
     getAccount() {
-        return 'account'
+        return (
+            <Account
+                updateAccount = {this.props.updateAccount}
+                handleKeyPress = {this.handleAccountKeyPress}
+            />
+        )
     }
     validateLogin() {
         var username = document.getElementById('username').value
@@ -45,6 +60,11 @@ class View extends React.Component {
         }
         else {
             this.props.setSignupMessage('Missing field.')
+        }
+    }
+    handleAccountKeyPress(e) {
+        if (e.key === 'Enter') {
+            this.props.updateAccount()
         }
     }
     handleLoginKeyPress(e) {
@@ -94,8 +114,8 @@ class View extends React.Component {
             
         return (
             <div id="layout" className="center">
-                <div className="mdl-layout__content center">
-                    <div className="page-content center">
+                <div className="center">
+                    <div className="center">
                         {view}
                     </div>
                 </div> 

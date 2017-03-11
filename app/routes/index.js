@@ -46,6 +46,9 @@ export default function (app, passport) {
       req.logout();
       // res.redirect('/login');
     });
+  
+  app.route('/update')
+    .post(traderFuncs.updateInfo)
 
   // app.route('/api/user/clicks')
 		// .get(isLoggedIn, clickHandler.getClicks)

@@ -24,14 +24,14 @@ function TraderFunctions() {
                             else
                                 res.json({
                                     error: true,
-                                    msg: 'Failed to login.'
+                                    msg: 'Invalid username and/or password.'
                                 })
                         })
                 }
                 else
                     res.json({
                         error: true,
-                        msg: 'Failed to login.'
+                        msg: 'Invalid username and/or password.'
                     });
             }
         )
@@ -72,7 +72,7 @@ function TraderFunctions() {
     }
 
     this.updateInfo = (req, res) => {
-
+        
     }
 }
 

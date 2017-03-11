@@ -68,7 +68,23 @@ class Top extends React.Component {
         })
     }
     updateAccount() {
+        var first_name = document.getElementById('first_name').value
+        var last_name = document.getElementById('last_name').value
+        var city = document.getElementById('city').value
+        var state = document.getElementById('state').value
         
+        axios.post('/update', {
+                first_name: first_name,
+                last_name: last_name,
+                city: city,
+                state: state
+            })
+            .then((response) => {
+                console.log(JSON.stringify(response))
+            })
+            .catch(function(error) {
+                console.log(error)
+            });
     }
     setLoginMessage(message) {
         this.setState({
@@ -158,6 +174,7 @@ class Top extends React.Component {
                     signup={this.signup}
                     setLoggedIn={this.setLoggedIn}
                     setLoggedOut={this.setLoggedOut}
+                    updateAccount={this.updateAccount}
                 /> 
             </div>
         )
