@@ -9,6 +9,7 @@ function TraderFunctions() {
         Traders.findOne({
                 username: req.body.username
             },
+            '-_id',
             (err, trader) => {
                 if (err) throw err
                 if (trader) {
@@ -18,7 +19,8 @@ function TraderFunctions() {
                                 req.session.username = req.body.username
                                 res.json({
                                     error: false,
-                                    msg: 'login success'
+                                    msg: 'login success',
+                                    user: trader
                                 })
                             }
                             else
@@ -72,7 +74,26 @@ function TraderFunctions() {
     }
 
     this.updateInfo = (req, res) => {
-        
+        Traders.findOne({
+                username: req.session.username
+            },
+            (err, trader) => {
+                if (err) throw err
+                if (trader) {
+                    trader.first_name = req.body.first_name
+                    trader.last_name = req.body.last_name
+                    trader.city = req.body.city
+                    trader.state = req.body.state
+                    trader.save()
+                    res.json({error: false, msg: 'saved', user: trader})
+                }
+                else
+                    res.json({
+                        error: true,
+                        msg: 'Invalid session.'
+                    });
+            }
+        )
     }
 }
 

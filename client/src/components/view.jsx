@@ -35,6 +35,8 @@ class View extends React.Component {
             <Account
                 updateAccount = {this.props.updateAccount}
                 handleKeyPress = {this.handleAccountKeyPress}
+                user = {this.props.user}
+                updated = {this.props.updated}
             />
         )
     }
@@ -109,7 +111,7 @@ class View extends React.Component {
             case 'account':
                 view = this.getAccount(); break;
             default:
-                view = this.getLoginForm(); break;
+                view = <div></div>; break;
         }
             
         return (

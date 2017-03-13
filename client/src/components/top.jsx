@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './header.jsx';
 import View from './view.jsx';
 import axios from 'axios'
+import cookie from 'react-cookie'
 
 class Top extends React.Component {
     constructor(props) {
@@ -12,33 +13,62 @@ class Top extends React.Component {
         this.setSignupMessage = this.setSignupMessage.bind(this)
         this.login = this.login.bind(this)
         this.signup = this.signup.bind(this)
-        this.logout = this.logout.bind(this)
         this.setLoggedOut = this.setLoggedOut.bind(this)
         this.setLoggedIn = this.setLoggedIn.bind(this)
         this.setViewMyBooks = this.setViewMyBooks.bind(this)
         this.setViewAllBooks = this.setViewAllBooks.bind(this)
         this.setViewAccount = this.setViewAccount.bind(this)
         this.updateAccount = this.updateAccount.bind(this)
-    
+        
         this.state = {
-            view: 'login',
-            login_message: '',
-            signup_message: '',
-            nav_view: 'logged_out',
+            view: '',
+            user: cookie.load('trader'),
+            updated: false
         }
     }
-    setLoggedOut() {
+    componentDidMount() {
+        var view = ''
+        var nav_view = 'logged_out'
+
+        if (this.state.user) {
+            view = 'my_books',
+            nav_view = 'logged_in'
+        }
+        else {
+            view = 'login'
+        }
+        
         this.setState({
-            nav_view: 'logged_out',
+            view: view,
             login_message: '',
-            signup_message: ''
+            signup_message: '',
+            nav_view: nav_view,
         })
     }
-    setLoggedIn() {
+    setLoggedOut() {
+        this.clearInputs()
+        axios.post('/logout')
+            .then((response) => {
+                this.setState({
+                    nav_view: 'logged_out',
+                    view: 'login',
+                    login_message: '',
+                    signup_message: ''
+                })
+                cookie.remove('trader')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        
+    }
+    setLoggedIn(user) {
         this.setState({
             nav_view: 'logged_in',
-            view: 'my_books'
+            view: 'my_books',
+            user: user
         })
+        cookie.save('trader', user)
     }
     setViewLogin() {
         this.clearInputs()
@@ -72,7 +102,7 @@ class Top extends React.Component {
         var last_name = document.getElementById('last_name').value
         var city = document.getElementById('city').value
         var state = document.getElementById('state').value
-        
+
         axios.post('/update', {
                 first_name: first_name,
                 last_name: last_name,
@@ -80,7 +110,11 @@ class Top extends React.Component {
                 state: state
             })
             .then((response) => {
-                console.log(JSON.stringify(response))
+                this.setState({
+                    user: response.data.user,
+                    updated: true
+                })
+                cookie.save('trader', response.data.user)
             })
             .catch(function(error) {
                 console.log(error)
@@ -104,11 +138,10 @@ class Top extends React.Component {
             })
             .then((response) => {
                 if (!response.data.error) {
-                    this.setLoggedIn()
+                    this.setLoggedIn(response.data.user)
                 }
                 else
                     this.setState({login_message:response.data.msg})
-                
             })
             .catch(function(error) {
                 console.log(error)
@@ -132,13 +165,6 @@ class Top extends React.Component {
                 console.log(error);
             });
     }
-    logout() {
-        this.clearInputs()
-        this.setState({
-            nav_view:'logged_out',
-            view: 'login',
-        })
-    }
     clearInputs() {
         if (document.getElementById('new_username')) {
             document.getElementById('new_username').value = ''
@@ -161,7 +187,8 @@ class Top extends React.Component {
                     setViewMyBooks={this.setViewMyBooks}
                     setViewAllBooks={this.setViewAllBooks}
                     setViewAccount={this.setViewAccount}
-                    logout={this.logout}
+                    logout={this.setLoggedOut}
+                    user={this.state.user}
                 />
                 <br/><br/><br/>
                 <View 
@@ -172,9 +199,9 @@ class Top extends React.Component {
                     signup_message={this.state.signup_message}
                     login={this.login}
                     signup={this.signup}
-                    setLoggedIn={this.setLoggedIn}
-                    setLoggedOut={this.setLoggedOut}
                     updateAccount={this.updateAccount}
+                    user={this.state.user}
+                    updated={this.state.updated}
                 /> 
             </div>
         )

@@ -34,6 +34,7 @@ app.use(session({
   secret: process.env.SECRET_SESSION || 'secretClementine',
   resave: false,
   saveUninitialized: true,
+  maxAge: 30 * 60 * 1000 // 30 minutes
 }));
 
 app.use(passport.initialize());

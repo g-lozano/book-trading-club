@@ -42,9 +42,9 @@ export default function (app, passport) {
     .post(traderFuncs.signup)
 
   app.route('/logout')
-    .get((req, res) => {
-      req.logout();
-      // res.redirect('/login');
+    .post((req, res) => {
+      req.session.destroy();
+      res.json({msg: 'logged out'})
     });
   
   app.route('/update')

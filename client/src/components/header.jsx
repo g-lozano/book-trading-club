@@ -1,4 +1,5 @@
 import React from 'react';
+import cookie from 'react-cookie';
 
 class Header extends React.Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class Header extends React.Component {
                 >All Books</a>
                 <a className="mdl-navigation__link clickable"
                     onClick={this.props.setViewAccount}
-                >Account</a>
+                >{this.props.user.username}</a>
                 <a className="mdl-navigation__link clickable"
                     onClick={this.props.logout}
                 >Logout</a>
