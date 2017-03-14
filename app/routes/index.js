@@ -4,7 +4,7 @@ import serverRender from '../serverRender.js';
 import BookFunctions from '../controllers/bookFunctions.server'
 import TraderFunctions from '../controllers/traderFunctions.server'
 
-const BookFuncs = new BookFunctions;
+const bookFuncs = new BookFunctions;
 const traderFuncs = new TraderFunctions;
 
 export default function (app, passport) {
@@ -49,6 +49,12 @@ export default function (app, passport) {
   
   app.route('/update')
     .post(traderFuncs.updateInfo)
+    
+  app.route('/getmybooks')
+    .post(bookFuncs.getMyBooks)
+  
+  app.route('/getallbooks')
+    .post(bookFuncs.getAllBooks)
 
   // app.route('/api/user/clicks')
 		// .get(isLoggedIn, clickHandler.getClicks)

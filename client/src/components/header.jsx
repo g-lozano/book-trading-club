@@ -9,6 +9,9 @@ class Header extends React.Component {
         var nav = (
             <nav className="mdl-navigation mdl-layout--large-screen-only">
                 <a className="mdl-navigation__link clickable"
+                    onClick={this.props.setViewAllBooks}
+                >All Books</a>
+                <a className="mdl-navigation__link clickable"
                     onClick={this.props.setViewLogin}
                 >Login</a>
                 <a className="mdl-navigation__link clickable"

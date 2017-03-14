@@ -63,9 +63,11 @@ function TraderFunctions() {
                                 new_trader.first_name = ''
                                 new_trader.last_name = ''
                                 new_trader.save()
+                                delete new_trader.hash
                                 res.json({
                                     error: false,
-                                    msg: 'User created.'
+                                    msg: 'User created.',
+                                    user: new_trader
                                 });
                             })
                 }

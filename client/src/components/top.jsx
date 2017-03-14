@@ -19,11 +19,12 @@ class Top extends React.Component {
         this.setViewAllBooks = this.setViewAllBooks.bind(this)
         this.setViewAccount = this.setViewAccount.bind(this)
         this.updateAccount = this.updateAccount.bind(this)
-        
+        this.getMyBooks = this.getMyBooks.bind(this)
+
         this.state = {
             view: '',
             user: cookie.load('trader'),
-            updated: false
+            updated: false,
         }
     }
     componentDidMount() {
@@ -32,12 +33,13 @@ class Top extends React.Component {
 
         if (this.state.user) {
             view = 'my_books',
-            nav_view = 'logged_in'
+                nav_view = 'logged_in'
+            this.getMyBooks()
         }
         else {
-            view = 'login'
+            view = 'all_books'
         }
-        
+
         this.setState({
             view: view,
             login_message: '',
@@ -45,22 +47,33 @@ class Top extends React.Component {
             nav_view: nav_view,
         })
     }
+    getMyBooks() {
+        axios.post('/getmybooks')
+            .then((response) => {
+                console.log(JSON.stringify(response.data))
+                if (!response.data.empty)
+                    this.setState({
+                        mybooks: response.data.books
+                    })
+            })
+    }
     setLoggedOut() {
         this.clearInputs()
         axios.post('/logout')
             .then((response) => {
                 this.setState({
                     nav_view: 'logged_out',
-                    view: 'login',
+                    view: 'all_books',
                     login_message: '',
-                    signup_message: ''
+                    signup_message: '',
+                    mybooks: []
                 })
                 cookie.remove('trader')
             })
             .catch((error) => {
                 console.log(error)
             })
-        
+
     }
     setLoggedIn(user) {
         this.setState({
@@ -68,6 +81,7 @@ class Top extends React.Component {
             view: 'my_books',
             user: user
         })
+        this.getMyBooks()
         cookie.save('trader', user)
     }
     setViewLogin() {
@@ -131,7 +145,9 @@ class Top extends React.Component {
         })
     }
     login(username, password) {
-        this.setState({login_message:''})
+        this.setState({
+            login_message: ''
+        })
         axios.post('/login', {
                 username: username,
                 password: password
@@ -141,7 +157,9 @@ class Top extends React.Component {
                     this.setLoggedIn(response.data.user)
                 }
                 else
-                    this.setState({login_message:response.data.msg})
+                    this.setState({
+                        login_message: response.data.msg
+                    })
             })
             .catch(function(error) {
                 console.log(error)
@@ -156,10 +174,12 @@ class Top extends React.Component {
                 if (!response.data.error) {
                     console.log(JSON.stringify(response.data))
                     this.clearInputs()
-                    this.setLoggedIn()
+                    this.setLoggedIn(response.data.user)
                 }
                 else
-                    this.setState({signup_message:response.data.msg})
+                    this.setState({
+                        signup_message: response.data.msg
+                    })
             })
             .catch(function(error) {
                 console.log(error);
@@ -177,7 +197,7 @@ class Top extends React.Component {
         }
     }
     render() {
-        
+
         return (
             <div>
                 <Header
@@ -202,6 +222,7 @@ class Top extends React.Component {
                     updateAccount={this.updateAccount}
                     user={this.state.user}
                     updated={this.state.updated}
+                    mybooks={this.state.mybooks}
                 /> 
             </div>
         )

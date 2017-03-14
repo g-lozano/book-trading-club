@@ -4,8 +4,8 @@ export default ({updateAccount, handleKeyPress, user, updated}) => (
   <div>
     <h4 className="center">Update account information:</h4>
     <br/>
-    Username: {updated}
-    <input id="last_name" defaultValue={user.username} type="text" disabled></input>
+    Username:
+    <input defaultValue={user.username} type="text" disabled></input>
     <br/>
     First name:
     <input id="first_name" defaultValue={user.first_name} placeholder="First Name" type="text" onKeyPress={handleKeyPress} disabled={updated}></input>

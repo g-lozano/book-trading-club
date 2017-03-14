@@ -46,3 +46,15 @@ input[type=password] {
   padding: 5px;
   text-align: center;
 }
+
+.book {
+  float: left;
+  padding: 8px;
+  background-color: white;
+  border: 1px solid gray;
+  margin: 5px;
+}
+
+.book:hover {
+  background-color: cyan;
+}

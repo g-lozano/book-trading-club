@@ -21,6 +21,7 @@ class View extends React.Component {
     getMyBooks() {
         return (
             <MyBooks
+                mybooks = {this.props.mybooks}
             />
         )
     }
