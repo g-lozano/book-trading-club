@@ -50,10 +50,10 @@ export default function (app, passport) {
   app.route('/update')
     .post(traderFuncs.updateInfo)
     
-  app.route('/getmybooks')
+  app.route('/mybooks')
     .post(bookFuncs.getMyBooks)
   
-  app.route('/getallbooks')
+  app.route('/allbooks')
     .post(bookFuncs.getAllBooks)
 
   // app.route('/api/user/clicks')

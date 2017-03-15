@@ -29,6 +29,7 @@ const renderHelper = (res, location, routes, store) => {
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
           <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
           <link rel="stylesheet" href="/static/style.css" media="all">
+          <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Cinzel Decorative'>
         </head>
         <body class="mdl-color--grey-100">
           <div id="appView">${html}</div>

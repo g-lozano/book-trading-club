@@ -51,10 +51,18 @@ input[type=password] {
   float: left;
   padding: 8px;
   background-color: white;
-  border: 1px solid gray;
+  border: 1px solid white;
   margin: 5px;
+  box-shadow: -2px -2px 5px #888888;
 }
 
 .book:hover {
   background-color: cyan;
+  border: 1px solid gray;
+}
+
+.view-title {
+  font-size: 40px;
+  padding: 20px;
+  font-family: 'Cinzel Decorative';
 }

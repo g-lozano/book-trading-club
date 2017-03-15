@@ -13,9 +13,12 @@ class MyBooks extends React.Component {
       else
         mybooks.push(<div className="text-center">You have no books in your collection.</div>)
     }
-    return (<div>
-      {mybooks}
-    </div>)
+    return (
+      <div>
+        <div className="text-center view-title">My Books</div>
+        {mybooks}
+      </div>
+    )
   }
 }
 

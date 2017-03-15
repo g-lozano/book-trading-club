@@ -28,6 +28,7 @@ class View extends React.Component {
     getAllBooks() {
         return (
             <AllBooks
+                allbooks = {this.props.allbooks}
             />
         )
     }
@@ -100,6 +101,7 @@ class View extends React.Component {
     }
     render() {
         var view = []
+        var title = []
         switch(this.props.view) {
             case 'login': 
                 view = this.getLoginForm(); break;
@@ -118,9 +120,7 @@ class View extends React.Component {
         return (
             <div id="layout" className="center">
                 <div className="center">
-                    <div className="center">
-                        {view}
-                    </div>
+                    {view}
                 </div> 
             </div>
         )

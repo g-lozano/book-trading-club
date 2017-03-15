@@ -3,7 +3,21 @@ import Book from '../models/books.js';
 
 function BookFunctions() {
     this.getAllBooks = (req, res) => {
-        
+        Books.find({},
+            (err, books) => {
+                if (err) throw err
+                if (books) {
+                    res.send({
+                        empty: false,
+                        books: books
+                    })
+                }
+                else
+                    res.send({
+                        empty: true,
+                        msg: 'No books.'
+                    })
+            })
     }
 
     this.getMyBooks = (req, res) => {

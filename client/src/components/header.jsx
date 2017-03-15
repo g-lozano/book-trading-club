@@ -7,7 +7,7 @@ class Header extends React.Component {
     }
     getNotLoggedInNav() {
         var nav = (
-            <nav className="mdl-navigation mdl-layout--large-screen-only">
+            <nav className="mdl-navigation">
                 <a className="mdl-navigation__link clickable"
                     onClick={this.props.setViewAllBooks}
                 >All Books</a>
@@ -23,7 +23,7 @@ class Header extends React.Component {
     }
     getLoggedInNav() {
         var nav = (
-            <nav className="mdl-navigation mdl-layout--large-screen-only">
+            <nav className="mdl-navigation">
                 <a className="mdl-navigation__link clickable"
                     onClick={this.props.setViewMyBooks}
                 >My Books</a>
@@ -51,7 +51,7 @@ class Header extends React.Component {
         return (
             <header className="mdl-layout__header">
               <div className="mdl-layout__header-row">
-                <span className="mdl-layout-title">Book Worms</span>
+                <span className="mdl-layout-title">Book Trading Club</span>
                 <div className="mdl-layout-spacer"></div>
                 {nav}
               </div>
