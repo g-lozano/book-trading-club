@@ -21,7 +21,13 @@ class View extends React.Component {
     getMyBooks() {
         return (
             <MyBooks
+                showNewBook = {this.props.showNewBook}
                 mybooks = {this.props.mybooks}
+                newbook = {this.props.newbook}
+                newbookdata = {this.props.newbookdata}
+                addBook = {this.props.addBook}
+                added_newbook = {this.props.added_newbook}
+                searching = {this.props.searching}
             />
         )
     }
@@ -45,6 +51,7 @@ class View extends React.Component {
     validateLogin() {
         var username = document.getElementById('username').value
         var password = document.getElementById('password').value
+        
         if (username && password){
             this.props.login(username, password)
         }

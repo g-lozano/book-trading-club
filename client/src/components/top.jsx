@@ -3,6 +3,7 @@ import Header from './header.jsx';
 import View from './view.jsx';
 import axios from 'axios'
 import cookie from 'react-cookie'
+import Book from './book.jsx'
 
 class Top extends React.Component {
     constructor(props) {
@@ -21,7 +22,9 @@ class Top extends React.Component {
         this.updateAccount = this.updateAccount.bind(this)
         this.setMyBooks = this.setMyBooks.bind(this)
         this.setAllBooks = this.setAllBooks.bind(this)
-        
+        this.showNewBook = this.showNewBook.bind(this)
+        this.addBook = this.addBook.bind(this)
+
         this.state = {
             view: '',
             user: cookie.load('trader'),
@@ -31,12 +34,12 @@ class Top extends React.Component {
     componentDidMount() {
         var view = ''
         var nav_view = ''
-        
+
         this.setAllBooks()
 
         if (this.state.user) {
             view = 'my_books',
-            nav_view = 'logged_in'
+                nav_view = 'logged_in'
             this.setMyBooks()
         }
         else {
@@ -78,7 +81,8 @@ class Top extends React.Component {
                     login_message: '',
                     signup_message: '',
                     mybooks: [],
-                    allbooks: []
+                    newbook: null,
+                    searching: false
                 })
                 cookie.remove('trader')
             })
@@ -197,6 +201,51 @@ class Top extends React.Component {
                 console.log(error);
             });
     }
+    setNewBook(book) {
+        this.setState({
+            newbook: <Book book={book}/>,
+            newbookdata: book,
+            added_newbook: false,
+            searching: false
+        })
+    }
+    addBook() {
+        axios.post('/addbook', this.state.newbookdata)
+            .then((response) => {
+                if (response.data.msg == 'saved') {
+                    var new_mybooks = this.state.mybooks
+                    var new_allbooks = this.state.allbooks
+                    new_mybooks.push(response.data.new_book)
+                    new_allbooks.push(response.data.new_book)
+                    this.setState({
+                        mybooks: new_mybooks,
+                        added_newbook: true
+                    })
+                }
+                else
+                    console.log('error')
+            })
+    }
+    showNewBook(e) {
+        var book_title = document.getElementById('newbook').value
+        if (e.key == 'Enter' && book_title) {
+            this.setState({
+                searching: true
+            })
+            axios.get('https://www.googleapis.com/books/v1/volumes?q=' + encodeURIComponent(book_title))
+                .then((response) => {
+                    var book = response.data.items[0]
+                    var thumbnail = book.volumeInfo.imageLinks.thumbnail.replace('&edge=curl', '')
+                    var book_data = {
+                        img: thumbnail,
+                        title: book.volumeInfo.title,
+                        author: book.volumeInfo.authors[0],
+                        id: book.id
+                    }
+                    this.setNewBook(book_data)
+                })
+        }
+    }
     clearInputs() {
         if (document.getElementById('new_username')) {
             document.getElementById('new_username').value = ''
@@ -236,6 +285,12 @@ class Top extends React.Component {
                     updated={this.state.updated}
                     mybooks={this.state.mybooks}
                     allbooks={this.state.allbooks}
+                    showNewBook={this.showNewBook}
+                    newbook={this.state.newbook}
+                    newbookdata={this.state.newbookdata}
+                    addBook={this.addBook}
+                    added_newbook={this.state.added_newbook}
+                    searching={this.state.searching}
                 /> 
             </div>
         )

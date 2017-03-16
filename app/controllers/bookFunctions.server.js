@@ -41,9 +41,29 @@ function BookFunctions() {
     }
 
     this.addBook = (req, res) => {
-
+        var new_book = new Book()
+    
+        new_book.owner = req.session.username
+        new_book.title = req.body.title
+        new_book.img = req.body.img
+        new_book.id = req.body.id
+    
+        new_book.save()
+            .then(
+                (book) => {
+                    if (book)
+                        res.send({
+                            msg: 'saved',
+                            new_book: book
+                        })
+    
+                    else
+                        res.send({
+                            msg: 'error'
+                        })
+                })
     }
-
+    
     this.removeBook = (req, res) => {
 
     }

@@ -16,7 +16,9 @@ class AllBooks extends React.Component {
     return (
       <div>
         <div className="text-center view-title">All Books</div>
-        {allbooks}
+        <div className="float-left">
+          {allbooks}
+        </div>
       </div>
     )
   }

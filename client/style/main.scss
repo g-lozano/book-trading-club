@@ -17,7 +17,7 @@ p.info {
 }
 
 .text-center {
-  text-align: center;  
+  text-align: center !important;  
 }
 
 .center {
@@ -48,7 +48,8 @@ input[type=password] {
 }
 
 .book {
-  float: left;
+  // float: left;
+  display: inline-block;
   padding: 8px;
   background-color: white;
   border: 1px solid white;
@@ -63,6 +64,18 @@ input[type=password] {
 
 .view-title {
   font-size: 40px;
-  padding: 20px;
+  padding: 40px;
   font-family: 'Cinzel Decorative';
+}
+
+.add-book-div {
+  width: 50%;
+}
+
+.float-left * {
+  float: left;
+}
+
+.add-book-button {
+  width: 100px;
 }

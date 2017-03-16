@@ -55,6 +55,12 @@ export default function (app, passport) {
   
   app.route('/allbooks')
     .post(bookFuncs.getAllBooks)
+  
+  app.route('/addbook')
+    .post(bookFuncs.addBook)
+  
+  app.route('/removebook')
+    .post(bookFuncs.removeBook)
 
   // app.route('/api/user/clicks')
 		// .get(isLoggedIn, clickHandler.getClicks)
