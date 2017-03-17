@@ -9,7 +9,7 @@ class MyBooks extends React.Component {
   getClassNameMyBooks() {
     if (typeof this.props.mybooks == 'object')
       return this.props.mybooks.length ? "float-left" : ""
-    return ""
+    return "none"
   }
   render() {
     var mybooks = []
@@ -18,8 +18,18 @@ class MyBooks extends React.Component {
     if (typeof this.props.mybooks == 'object') {
       if (this.props.mybooks.length)
         this.props.mybooks.forEach(
-          (book) => {
-            mybooks.push(<div><Book book={book}/></div>)
+          (book, index) => {
+            var bookid = book.id + '.' + index
+            mybooks.push(
+              <div className="relative book-div">
+                <button className="remove-button">
+                  <i onClick={this.props.removeBook} 
+                    id={bookid}
+                    className="material-icons clickable">highlight_off</i>
+                </button>
+                <Book book={book}/>
+              </div>
+            )
           })
       else
         mybooks.push(<div className="text-center">You have no books in your collection.</div>)
@@ -48,10 +58,12 @@ class MyBooks extends React.Component {
         </div>
       )
     }
+    else
+      addnewbook = <div></div>
     return (
       <div>
         <div className="center">
-          Add a book:
+          Find a book to add:
           <input id="newbook" onKeyPress={this.props.showNewBook} type="text" placeholder="Enter title"/>
           {addnewbook}
         </div>

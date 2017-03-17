@@ -28,6 +28,7 @@ class View extends React.Component {
                 addBook = {this.props.addBook}
                 added_newbook = {this.props.added_newbook}
                 searching = {this.props.searching}
+                removeBook = {this.props.removeBook}
             />
         )
     }
@@ -51,7 +52,7 @@ class View extends React.Component {
     validateLogin() {
         var username = document.getElementById('username').value
         var password = document.getElementById('password').value
-        
+
         if (username && password){
             this.props.login(username, password)
         }

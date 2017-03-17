@@ -65,7 +65,20 @@ function BookFunctions() {
     }
     
     this.removeBook = (req, res) => {
-
+        Books.findOneAndRemove({
+                id: req.body.id,
+                owner: req.session.username
+            },
+            (err) => {
+                if (err)
+                    res.send({
+                        msg: 'error'
+                    })
+                else
+                    res.send({
+                        msg: 'ok'
+                    })
+            })
     }
 
     this.updateBook = (req, res) => {

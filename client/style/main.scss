@@ -48,7 +48,6 @@ input[type=password] {
 }
 
 .book {
-  // float: left;
   display: inline-block;
   padding: 8px;
   background-color: white;
@@ -60,6 +59,7 @@ input[type=password] {
 .book:hover {
   background-color: cyan;
   border: 1px solid gray;
+  box-shadow: -4px -4px 5px #888888;
 }
 
 .view-title {
@@ -72,10 +72,39 @@ input[type=password] {
   width: 50%;
 }
 
-.float-left * {
+.float-left > * {
   float: left;
 }
 
 .add-book-button {
   width: 100px;
+}
+
+.remove-button {
+  width: auto;
+  position: absolute;
+  top: -5px;
+  left: -10px;
+  background-color: transparent;
+  border: 0px;
+  outline: none;
+  color: gray;
+  display: none;
+}
+
+.relative {
+  position: relative;
+}
+
+.test {
+  display: none;
+}
+
+.book-div {
+  height: 280px;
+}
+
+.book-div:hover .remove-button {
+  display: block;
+  visibility: visible;
 }

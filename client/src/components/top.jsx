@@ -24,6 +24,7 @@ class Top extends React.Component {
         this.setAllBooks = this.setAllBooks.bind(this)
         this.showNewBook = this.showNewBook.bind(this)
         this.addBook = this.addBook.bind(this)
+        this.removeBook = this.removeBook.bind(this)
 
         this.state = {
             view: '',
@@ -81,7 +82,7 @@ class Top extends React.Component {
                     login_message: '',
                     signup_message: '',
                     mybooks: [],
-                    newbook: null,
+                    newbook: '',
                     searching: false
                 })
                 cookie.remove('trader')
@@ -217,9 +218,13 @@ class Top extends React.Component {
                     var new_allbooks = this.state.allbooks
                     new_mybooks.push(response.data.new_book)
                     new_allbooks.push(response.data.new_book)
+                    var temp = {
+                        title: null,
+                    }
                     this.setState({
                         mybooks: new_mybooks,
-                        added_newbook: true
+                        added_newbook: true,
+                        newbook: "",
                     })
                 }
                 else
@@ -243,7 +248,27 @@ class Top extends React.Component {
                         id: book.id
                     }
                     this.setNewBook(book_data)
+                    document.getElementById('newbook').value = ''
                 })
+        }
+    }
+    removeBook(e) {
+        if (confirm('Remove book?')) {
+            var index = e.target.getAttribute('id').split('.')[1]
+            var id = e.target.getAttribute('id').split('.')[0]
+            var new_mybooks = this.state.mybooks
+            new_mybooks.splice(index, 1)
+            
+            this.setState({
+                mybooks: new_mybooks
+            })
+            
+            axios.post('/removebook', {
+                id: id
+            })
+            .then((response) => {
+                this.setAllBooks()
+            })
         }
     }
     clearInputs() {
@@ -291,6 +316,7 @@ class Top extends React.Component {
                     addBook={this.addBook}
                     added_newbook={this.state.added_newbook}
                     searching={this.state.searching}
+                    removeBook={this.removeBook}
                 /> 
             </div>
         )
