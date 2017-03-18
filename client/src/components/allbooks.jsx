@@ -8,7 +8,16 @@ class AllBooks extends React.Component {
       if (this.props.allbooks.length)
         this.props.allbooks.forEach(
           (book) => {
-            allbooks.push(<div><Book book={book}/></div>)
+            var button = (
+              <button className="book-button trade-button" onClick={this.props.handleClickTrade}>
+                <i className="material-icons">swap_vertical_circle</i>
+              </button>
+            )
+            allbooks.push(
+              <div className="relative book-div">
+                <Book button={button} book={book}/>
+              </div>
+            )
           })
       else
         allbooks.push(<div></div>)

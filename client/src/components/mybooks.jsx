@@ -20,14 +20,16 @@ class MyBooks extends React.Component {
         this.props.mybooks.forEach(
           (book, index) => {
             var bookid = book.id + '.' + index
+            var button = (
+              <button className="book-button remove-button"
+                onClick={this.props.removeBook} 
+                name={bookid}>
+                <i name={bookid} className="material-icons">highlight_off</i>
+              </button>
+            )
             mybooks.push(
               <div className="relative book-div">
-                <button className="remove-button">
-                  <i onClick={this.props.removeBook} 
-                    id={bookid}
-                    className="material-icons clickable">highlight_off</i>
-                </button>
-                <Book book={book}/>
+                <Book button={button} book={book}/>
               </div>
             )
           })
@@ -43,7 +45,7 @@ class MyBooks extends React.Component {
     else if (typeof this.props.newbook == 'object') {
       addnewbook = (
         <div className="center text-center">
-          <div>{this.props.newbook}</div>
+          <div className="book-div">{this.props.newbook}</div>
           <u>{this.props.newbookdata.title}</u>
           <br/>
           by {this.props.newbookdata.author}

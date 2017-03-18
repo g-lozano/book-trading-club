@@ -5,6 +5,8 @@ const Book = new Schema({
     title: String,
     img: String,
     owner: String,
+    swap_status: String,
+    swapper: String
 });
 
 export default mongoose.model('Book', Book);

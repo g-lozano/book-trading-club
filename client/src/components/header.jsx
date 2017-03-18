@@ -31,8 +31,11 @@ class Header extends React.Component {
                     onClick={this.props.setViewAllBooks}
                 >All Books</a>
                 <a className="mdl-navigation__link clickable"
+                    onClick={this.props.setViewMySwaps}
+                >My Swaps</a>
+                <a className="mdl-navigation__link clickable"
                     onClick={this.props.setViewAccount}
-                >{this.props.user.username}</a>
+                ><i className="material-icons">perm_identity</i>{this.props.user.username}</a>
                 <a className="mdl-navigation__link clickable"
                     onClick={this.props.logout}
                 >Logout</a>
@@ -51,7 +54,7 @@ class Header extends React.Component {
         return (
             <header className="mdl-layout__header">
               <div className="mdl-layout__header-row">
-                <span className="mdl-layout-title">Book Trading Club</span>
+                <span className="mdl-layout-title">Swapper</span>
                 <div className="mdl-layout-spacer"></div>
                 {nav}
               </div>

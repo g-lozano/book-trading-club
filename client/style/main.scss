@@ -5,6 +5,10 @@ p.info {
   color: $test-color;
 }
 
+.mdl-layout-title {
+  font-family: 'Cinzel Decorative';
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -54,12 +58,19 @@ input[type=password] {
   border: 1px solid white;
   margin: 5px;
   box-shadow: -2px -2px 5px #888888;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .book:hover {
   background-color: cyan;
   border: 1px solid gray;
   box-shadow: -4px -4px 5px #888888;
+}
+
+.book-cover {
+  height: 170px;
 }
 
 .view-title {
@@ -80,16 +91,24 @@ input[type=password] {
   width: 100px;
 }
 
-.remove-button {
-  width: auto;
+.book-button {
   position: absolute;
-  top: -5px;
-  left: -10px;
-  background-color: transparent;
-  border: 0px;
-  outline: none;
-  color: gray;
+  top: -17px;
+  left: -21px;
   display: none;
+  height: 25px;
+  background-color: transparent;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+}
+
+.remove-button {
+  color: red;
+}
+
+.remove-button > i {
+  font-size: 35px;
 }
 
 .relative {
@@ -101,10 +120,23 @@ input[type=password] {
 }
 
 .book-div {
-  height: 280px;
+  height: 250px;
 }
 
 .book-div:hover .remove-button {
+  display: block;
+  visibility: visible;
+}
+
+.trade-button {
+  color: black;
+}
+
+.trade-button > i {
+  font-size: 35px;
+}
+
+.book-div:hover .trade-button {
   display: block;
   visibility: visible;
 }

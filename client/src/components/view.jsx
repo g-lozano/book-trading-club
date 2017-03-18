@@ -4,6 +4,7 @@ import Signup from './signup.jsx'
 import AllBooks from './allbooks.jsx'
 import MyBooks from './mybooks.jsx'
 import Account from './account.jsx'
+import SwapView from './swapview.jsx'
 
 class View extends React.Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class View extends React.Component {
         this.getAllBooks = this.getAllBooks.bind(this)
         this.getAccount = this.getAccount.bind(this)
         this.handleAccountKeyPress = this.handleAccountKeyPress.bind(this)
+        this.getMySwaps = this.getMySwaps.bind(this)
     }
     getMyBooks() {
         return (
@@ -36,6 +38,7 @@ class View extends React.Component {
         return (
             <AllBooks
                 allbooks = {this.props.allbooks}
+                handleClickTrade = {this.props.handleClickTrade}
             />
         )
     }
@@ -56,8 +59,11 @@ class View extends React.Component {
         if (username && password){
             this.props.login(username, password)
         }
-        else {
-            this.props.setLoginMessage('Missing field')
+        else if (!username) {
+            this.props.setLoginMessage('Username is missing.')
+        }
+        else if (!password) {
+            this.props.setLoginMessage('Password is missing.')
         }
     }
     validateSignup() {
@@ -70,8 +76,11 @@ class View extends React.Component {
             else
                 this.props.setSignupMessage('Passwords do not match.')
         }
-        else {
-            this.props.setSignupMessage('Missing field.')
+        else if (!new_username) {
+            this.props.setSignupMessage('New username is missing.')
+        }
+        else if (!new_password1 || !new_password2) {
+            this.props.setSignupMessage('New password is missing.')
         }
     }
     handleAccountKeyPress(e) {
@@ -107,6 +116,13 @@ class View extends React.Component {
             />
         )
     }
+    getMySwaps() {
+        return (
+            <SwapView
+            
+            />
+        )
+    }
     render() {
         var view = []
         var title = []
@@ -121,6 +137,8 @@ class View extends React.Component {
                 view = this.getAllBooks(); break;
             case 'account':
                 view = this.getAccount(); break;
+            case 'my_swaps':
+                view = this.getMySwaps(); break;
             default:
                 view = <div></div>; break;
         }

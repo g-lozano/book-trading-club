@@ -25,6 +25,8 @@ class Top extends React.Component {
         this.showNewBook = this.showNewBook.bind(this)
         this.addBook = this.addBook.bind(this)
         this.removeBook = this.removeBook.bind(this)
+        this.handleClickTrade = this.handleClickTrade.bind(this)
+        this.setViewMySwaps = this.setViewMySwaps.bind(this)
 
         this.state = {
             view: '',
@@ -83,7 +85,8 @@ class Top extends React.Component {
                     signup_message: '',
                     mybooks: [],
                     newbook: '',
-                    searching: false
+                    searching: false,
+                    user: null
                 })
                 cookie.remove('trader')
             })
@@ -126,6 +129,11 @@ class Top extends React.Component {
     setViewAccount() {
         this.setState({
             view: 'account'
+        })
+    }
+    setViewMySwaps() {
+        this.setState({
+            view: 'my_swaps'
         })
     }
     updateAccount() {
@@ -239,8 +247,10 @@ class Top extends React.Component {
             })
             axios.get('https://www.googleapis.com/books/v1/volumes?q=' + encodeURIComponent(book_title))
                 .then((response) => {
+                    var thumbnail = 'img/thumbnail_not_found.png'
                     var book = response.data.items[0]
-                    var thumbnail = book.volumeInfo.imageLinks.thumbnail.replace('&edge=curl', '')
+                    if (book.volumeInfo.imageLinks)
+                        thumbnail = book.volumeInfo.imageLinks.thumbnail.replace('&edge=curl', '')
                     var book_data = {
                         img: thumbnail,
                         title: book.volumeInfo.title,
@@ -254,8 +264,8 @@ class Top extends React.Component {
     }
     removeBook(e) {
         if (confirm('Remove book?')) {
-            var index = e.target.getAttribute('id').split('.')[1]
-            var id = e.target.getAttribute('id').split('.')[0]
+            var index = e.target.getAttribute('name').split('.')[1]
+            var id = e.target.getAttribute('name').split('.')[0]
             var new_mybooks = this.state.mybooks
             new_mybooks.splice(index, 1)
             
@@ -282,6 +292,12 @@ class Top extends React.Component {
             document.getElementById('password').value = ''
         }
     }
+    handleClickTrade(e) {
+        if (!this.state.user) {
+            this.setViewLogin()
+            this.setLoginMessage('Login to trade.')
+        }
+    }
     render() {
 
         return (
@@ -293,6 +309,7 @@ class Top extends React.Component {
                     setViewMyBooks={this.setViewMyBooks}
                     setViewAllBooks={this.setViewAllBooks}
                     setViewAccount={this.setViewAccount}
+                    setViewMySwaps={this.setViewMySwaps}
                     logout={this.setLoggedOut}
                     user={this.state.user}
                 />
@@ -317,6 +334,7 @@ class Top extends React.Component {
                     added_newbook={this.state.added_newbook}
                     searching={this.state.searching}
                     removeBook={this.removeBook}
+                    handleClickTrade={this.handleClickTrade}
                 /> 
             </div>
         )

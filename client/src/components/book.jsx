@@ -1,7 +1,8 @@
 import React from 'react'
 
-export default ({book}) => (
+export default ({book, button}) => (
     <div className="book">
-      <img src={book.img} title={book.title}/>
+      {button}
+      <img className="book-cover" src={book.img} title={book.title}/>
     </div>
 )
