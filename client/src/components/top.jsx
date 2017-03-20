@@ -42,12 +42,13 @@ class Top extends React.Component {
 
         if (this.state.user) {
             view = 'my_books',
-                nav_view = 'logged_in'
+            nav_view = 'logged_in'
             this.setMyBooks()
         }
         else {
-            view = 'all_books'
-            nav_view = 'logged_out'
+            this.login('Demo', 'Demo') // Demo auto-login
+            // view = 'all_books'
+            // nav_view = 'logged_out'
         }
 
         this.setState({
@@ -295,14 +296,17 @@ class Top extends React.Component {
     handleClickTrade(e) {
         if (!this.state.user) {
             this.setViewLogin()
-            this.setLoginMessage('Login to trade.')
+            this.setLoginMessage('Login to swap.')
         }
+        else
+            alert('Swap request sent.')
     }
     render() {
 
         return (
             <div>
                 <Header
+                    view={this.state.view}
                     nav_view={this.state.nav_view}
                     setViewLogin={this.setViewLogin} 
                     setViewSignup={this.setViewSignup}
