@@ -7,10 +7,19 @@ class AllBooks extends React.Component {
     if (typeof this.props.allbooks == 'object') {
       if (this.props.allbooks.length)
         this.props.allbooks.forEach(
-          (book) => {
+          (book, i) => {
+            var id = i + "." + book.id
+            var className = "book-button trade-button trade-button-available"
+            if (book.swap_status == 'pending')
+              className = "book-button trade-button trade-button-pending" 
             var button = (
-              <button className="book-button trade-button" onClick={this.props.handleClickTrade}>
-                <i className="material-icons">swap_vertical_circle</i>
+              <button 
+                className={className}
+                onClick={this.props.handleClickTrade}
+                name={id}>
+                <i 
+                className="material-icons"
+                name={id}>swap_vertical_circle</i>
               </button>
             )
             allbooks.push(

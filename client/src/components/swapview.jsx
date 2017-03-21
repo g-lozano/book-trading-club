@@ -1,33 +1,13 @@
 import React from 'react';
 import Book from './book.jsx';
+import axios from 'axios';
 
 class SwapView extends React.Component {
   constructor(props) {
     super(props)
-    this.setSwapIn = this.setSwapIn.bind(this)
-    this.setSwapOut = this.setSwapOut.bind(this)
-    this.setSwapHistory = this.setSwapHistory.bind(this)
-    this.getIncoming = this.getIncoming.bind(this)
-    this.getOutgoing = this.getOutgoing.bind(this)
-    this.getHistory = this.getHistory.bind(this)
-    this.state = {
-      swapview: ''
+    this.state ={
+      allbooks: []
     }
-  }
-  setSwapIn() {
-    this.setState({
-      swapview: 'incoming'
-    })
-  }
-  setSwapOut() {
-    this.setState({
-      swapview: 'outgoing'
-    })
-  }
-  setSwapHistory() {
-    this.setState({
-      swapview: 'history'
-    })
   }
   getIncoming() {
     return (
@@ -53,7 +33,7 @@ class SwapView extends React.Component {
   render() {
     var swapview = []
     
-    switch(this.state.swapview) {
+    switch(this.props.swapview) {
       case 'incoming':
         swapview = this.getIncoming(); break;
       case 'outgoing':
@@ -61,15 +41,17 @@ class SwapView extends React.Component {
       case 'history':
         swapview = this.getHistory(); break;
       default:
-        swapview = <div>hi</div>; break;
+        swapview = <div></div>; break;
     }
       
     return (
       <div>
         <div className="text-center view-title">My Swaps</div>
-        <button onClick={this.setSwapIn} className="mdl-button mdl-js-button mdl-button--raised">Incoming Swap Requests</button>
-        <button onClick={this.setSwapOut} className="mdl-button mdl-js-button mdl-button--raised">Outgoing Swap Requests</button>
-        <button onClick={this.setSwapHistory} className="mdl-button mdl-js-button mdl-button--raised">Swap History</button>
+        <div> 
+        <button onClick={this.props.setSwapViewIn} className="mdl-button mdl-js-button mdl-button--raised">Incoming Swap Requests</button>
+        <button onClick={this.props.setSwapViewOut} className="mdl-button mdl-js-button mdl-button--raised">Outgoing Swap Requests</button>
+        <button onClick={this.props.setSwapViewHistory} className="mdl-button mdl-js-button mdl-button--raised">Swap History</button>
+        </div>
         <div>
           {swapview}
         </div>

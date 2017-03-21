@@ -27,11 +27,15 @@ class Top extends React.Component {
         this.removeBook = this.removeBook.bind(this)
         this.handleClickTrade = this.handleClickTrade.bind(this)
         this.setViewMySwaps = this.setViewMySwaps.bind(this)
+        this.setSwapViewIn = this.setSwapViewIn.bind(this)
+        this.setSwapViewOut = this.setSwapViewOut.bind(this)
+        this.setSwapViewHistory = this.setSwapViewHistory.bind(this)
 
         this.state = {
             view: '',
             user: cookie.load('trader'),
             updated: false,
+            swapview: 'incoming',
         }
     }
     componentDidMount() {
@@ -46,9 +50,9 @@ class Top extends React.Component {
             this.setMyBooks()
         }
         else {
-            this.login('Demo', 'Demo') // Demo auto-login
-            // view = 'all_books'
-            // nav_view = 'logged_out'
+            // this.login('Demo', 'Demo') // Demo auto-login
+            view = 'all_books'
+            nav_view = 'logged_out'
         }
 
         this.setState({
@@ -298,8 +302,38 @@ class Top extends React.Component {
             this.setViewLogin()
             this.setLoginMessage('Login to swap.')
         }
-        else
-            alert('Swap request sent.')
+        else {
+            var index = e.target.getAttribute('name').split('.')[0]
+            var id = e.target.getAttribute('name').split('.')[1]
+            var new_allbooks = this.state.allbooks
+            var updated_book = this.state.allbooks[index]
+            
+            if (updated_book.swap_status == 'available')
+                updated_book.swap_status = 'pending'
+            else
+                updated_book.swap_status = 'available'
+            
+            new_allbooks.splice(index, 1, updated_book)
+            
+            this.setState({
+                allbooks: new_allbooks
+            })
+        }
+    }
+    setSwapViewIn() {
+        this.setState({
+            swapview: 'incoming'
+        })
+    }
+    setSwapViewOut() {
+        this.setState({
+            swapview: 'outgoing'
+        })
+    }
+    setSwapViewHistory() {
+        this.setState({
+            swapview: 'history'
+        })
     }
     render() {
 
@@ -339,6 +373,10 @@ class Top extends React.Component {
                     searching={this.state.searching}
                     removeBook={this.removeBook}
                     handleClickTrade={this.handleClickTrade}
+                    swapview={this.state.swapview}
+                    setSwapViewIn={this.setSwapViewIn}
+                    setSwapViewOut={this.setSwapViewOut}
+                    setSwapViewHistory={this.setSwapViewHistory}
                 /> 
             </div>
         )

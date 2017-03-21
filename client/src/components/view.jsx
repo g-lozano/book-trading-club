@@ -119,7 +119,11 @@ class View extends React.Component {
     getMySwaps() {
         return (
             <SwapView
-            
+                swapview={this.props.swapview}
+                setSwapViewIn={this.props.setSwapViewIn}
+                setSwapViewOut={this.props.setSwapViewOut}
+                setSwapViewHistory={this.props.setSwapViewHistory}
+                allbooks={this.props.allbooks}
             />
         )
     }

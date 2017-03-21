@@ -47,6 +47,8 @@ function BookFunctions() {
         new_book.title = req.body.title
         new_book.img = req.body.img
         new_book.id = req.body.id
+        new_book.swap_status = 'available'
+        new_book.swapper = ''
     
         new_book.save()
             .then(

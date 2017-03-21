@@ -157,8 +157,12 @@ input[type=password] {
   visibility: visible;
 }
 
-.trade-button {
+.trade-button-available {
   color: black;
+}
+
+.trade-button-pending {
+  color: blue;
 }
 
 .trade-button > i {
