@@ -47,10 +47,10 @@ class SwapView extends React.Component {
     return (
       <div>
         <div className="text-center view-title">My Swaps</div>
-        <div> 
-        <button onClick={this.props.setSwapViewIn} className="mdl-button mdl-js-button mdl-button--raised">Incoming Swap Requests</button>
-        <button onClick={this.props.setSwapViewOut} className="mdl-button mdl-js-button mdl-button--raised">Outgoing Swap Requests</button>
-        <button onClick={this.props.setSwapViewHistory} className="mdl-button mdl-js-button mdl-button--raised">Swap History</button>
+        <div className="text-center"> 
+          <button onClick={this.props.setSwapViewIn} className="mdl-button mdl-js-button mdl-button--raised">Incoming Swap Requests</button>
+          <button onClick={this.props.setSwapViewOut} className="mdl-button mdl-js-button mdl-button--raised">Outgoing Swap Requests</button>
+          <button onClick={this.props.setSwapViewHistory} className="mdl-button mdl-js-button mdl-button--raised">Swap History</button>
         </div>
         <div>
           {swapview}

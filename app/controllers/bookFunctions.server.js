@@ -84,7 +84,15 @@ function BookFunctions() {
     }
 
     this.updateBook = (req, res) => {
-
+        Books.findOneAndUpdate({
+            id: req.body.id
+        }, {
+            swap_status: req.body.swap_status
+        },
+        (err) => {
+            if (err) throw err
+            res.send({msg: 'ok'})
+        })
     }
 }
 

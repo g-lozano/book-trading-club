@@ -100,6 +100,7 @@ class Top extends React.Component {
             })
     }
     setLoggedIn(user) {
+        cookie.save('trader', user)
         this.setState({
             nav_view: 'logged_in',
             view: 'my_books',
@@ -107,7 +108,6 @@ class Top extends React.Component {
         })
         this.setMyBooks()
         this.setAllBooks()
-        cookie.save('trader', user)
     }
     setViewLogin() {
         this.clearInputs()
@@ -314,7 +314,13 @@ class Top extends React.Component {
                 updated_book.swap_status = 'available'
             
             new_allbooks.splice(index, 1, updated_book)
-            
+            var book_info = {
+                id: id,
+                swap_status: updated_book.swap_status
+            }
+            axios.post('/updatebook', book_info)
+                .then((response) => {
+                })
             this.setState({
                 allbooks: new_allbooks
             })

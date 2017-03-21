@@ -31,12 +31,12 @@ class Header extends React.Component {
                 <a className={view == 'my_books' ? classNameActive:className}
                     onClick={this.props.setViewMyBooks}
                 >My Books</a>
-                <a className={view == 'all_books' ? classNameActive:className}
-                    onClick={this.props.setViewAllBooks}
-                >All Books</a>
                 <a className={view == 'my_swaps' ? classNameActive:className}
                     onClick={this.props.setViewMySwaps}
                 >My Swaps</a>
+                <a className={view == 'all_books' ? classNameActive:className}
+                    onClick={this.props.setViewAllBooks}
+                >Browse Books</a>
                 <a className={view == 'account' ? classNameActive:className}
                     onClick={this.props.setViewAccount}
                 ><i className="material-icons">perm_identity</i>{this.props.user.username}</a>

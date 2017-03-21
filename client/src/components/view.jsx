@@ -39,6 +39,7 @@ class View extends React.Component {
             <AllBooks
                 allbooks = {this.props.allbooks}
                 handleClickTrade = {this.props.handleClickTrade}
+                user={this.props.user}
             />
         )
     }

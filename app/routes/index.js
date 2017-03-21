@@ -61,6 +61,9 @@ export default function (app, passport) {
   
   app.route('/removebook')
     .post(bookFuncs.removeBook)
+    
+  app.route('/updatebook')
+    .post(bookFuncs.updateBook)
 
   // app.route('/api/user/clicks')
 		// .get(isLoggedIn, clickHandler.getClicks)
