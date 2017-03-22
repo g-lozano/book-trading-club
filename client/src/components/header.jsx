@@ -12,7 +12,7 @@ class Header extends React.Component {
             <nav className="mdl-navigation">
                 <a className={view == 'all_books' ? classNameActive:className}
                     onClick={this.props.setViewAllBooks}
-                >All Books</a>
+                >Browse Books</a>
                 <a className={view == 'login' ? classNameActive:className}
                     onClick={this.props.setViewLogin}
                 >Login</a>
@@ -34,8 +34,8 @@ class Header extends React.Component {
                 <a className={view == 'my_swaps' ? classNameActive:className}
                     onClick={this.props.setViewMySwaps}
                 >My Swaps</a>
-                <a className={view == 'all_books' ? classNameActive:className}
-                    onClick={this.props.setViewAllBooks}
+                <a className={(view == 'all_books' || view == 'available_books') ? classNameActive:className}
+                    onClick={this.props.setViewAvailableBooks}
                 >Browse Books</a>
                 <a className={view == 'account' ? classNameActive:className}
                     onClick={this.props.setViewAccount}

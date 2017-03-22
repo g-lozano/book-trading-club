@@ -32,6 +32,8 @@ class SwapView extends React.Component {
   }
   render() {
     var swapview = []
+    var active = "mdl-button mdl-js-button mdl-button--raised options-active"
+    var normal = "mdl-button mdl-js-button mdl-button--raised"
     
     switch(this.props.swapview) {
       case 'incoming':
@@ -43,14 +45,23 @@ class SwapView extends React.Component {
       default:
         swapview = <div></div>; break;
     }
-      
+    
     return (
       <div>
         <div className="text-center view-title">My Swaps</div>
         <div className="text-center"> 
-          <button onClick={this.props.setSwapViewIn} className="mdl-button mdl-js-button mdl-button--raised">Incoming Swap Requests</button>
-          <button onClick={this.props.setSwapViewOut} className="mdl-button mdl-js-button mdl-button--raised">Outgoing Swap Requests</button>
-          <button onClick={this.props.setSwapViewHistory} className="mdl-button mdl-js-button mdl-button--raised">Swap History</button>
+          <button 
+            onClick={this.props.setSwapViewIn} 
+            className={this.props.swapview == 'incoming'?active:normal}>
+            Incoming Swap Requests</button>
+          <button 
+            onClick={this.props.setSwapViewOut} 
+            className={this.props.swapview == 'outgoing'?active:normal}>
+            Outgoing Swap Requests</button>
+          <button 
+            onClick={this.props.setSwapViewHistory} 
+            className={this.props.swapview == 'history'?active:normal}>
+            Swap History</button>
         </div>
         <div>
           {swapview}

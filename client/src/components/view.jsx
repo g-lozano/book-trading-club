@@ -38,8 +38,12 @@ class View extends React.Component {
         return (
             <AllBooks
                 allbooks = {this.props.allbooks}
+                available_books={this.props.available_books}
                 handleClickTrade = {this.props.handleClickTrade}
                 user={this.props.user}
+                setViewAvailableBooks={this.props.setViewAvailableBooks}
+                setViewAllBooks={this.props.setViewAllBooks}
+                view={this.props.view}
             />
         )
     }
@@ -138,6 +142,7 @@ class View extends React.Component {
                 view = this.getSignupForm(); break;
             case 'my_books':
                 view = this.getMyBooks(); break;
+            case 'available_books':
             case 'all_books':
                 view = this.getAllBooks(); break;
             case 'account':

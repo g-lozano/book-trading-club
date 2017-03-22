@@ -30,6 +30,7 @@ class Top extends React.Component {
         this.setSwapViewIn = this.setSwapViewIn.bind(this)
         this.setSwapViewOut = this.setSwapViewOut.bind(this)
         this.setSwapViewHistory = this.setSwapViewHistory.bind(this)
+        this.setViewAvailableBooks = this.setViewAvailableBooks.bind(this)
 
         this.state = {
             view: '',
@@ -65,8 +66,16 @@ class Top extends React.Component {
     setAllBooks() {
         axios.post('/allbooks')
             .then((response) => {
+                var available_books = []
+                response.data.books.forEach((book) => {
+                    if (book.swap_status == 'available' && book.owner != this.state.user.username)
+                        available_books.push(book)
+                })
+                console.log('setallbooks from top: ' + available_books.length)
+                
                 this.setState({
-                    allbooks: response.data.books
+                    allbooks: response.data.books,
+                    available_books: available_books
                 })
             })
     }
@@ -320,10 +329,8 @@ class Top extends React.Component {
             }
             axios.post('/updatebook', book_info)
                 .then((response) => {
+                    this.setAllBooks()
                 })
-            this.setState({
-                allbooks: new_allbooks
-            })
         }
     }
     setSwapViewIn() {
@@ -341,6 +348,11 @@ class Top extends React.Component {
             swapview: 'history'
         })
     }
+    setViewAvailableBooks() {
+        this.setState({
+            view: 'available_books'
+        })
+    }
     render() {
 
         return (
@@ -354,6 +366,7 @@ class Top extends React.Component {
                     setViewAllBooks={this.setViewAllBooks}
                     setViewAccount={this.setViewAccount}
                     setViewMySwaps={this.setViewMySwaps}
+                    setViewAvailableBooks={this.setViewAvailableBooks}
                     logout={this.setLoggedOut}
                     user={this.state.user}
                 />
@@ -371,6 +384,7 @@ class Top extends React.Component {
                     updated={this.state.updated}
                     mybooks={this.state.mybooks}
                     allbooks={this.state.allbooks}
+                    available_books={this.state.available_books}
                     showNewBook={this.showNewBook}
                     newbook={this.state.newbook}
                     newbookdata={this.state.newbookdata}
@@ -383,6 +397,8 @@ class Top extends React.Component {
                     setSwapViewIn={this.setSwapViewIn}
                     setSwapViewOut={this.setSwapViewOut}
                     setSwapViewHistory={this.setSwapViewHistory}
+                    setViewAvailableBooks={this.setViewAvailableBooks}
+                    setViewAllBooks={this.setViewAllBooks}
                 /> 
             </div>
         )

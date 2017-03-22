@@ -4,9 +4,14 @@ import Book from './book.jsx';
 class AllBooks extends React.Component {
   render() {
     var allbooks = []
+    var options = []
     if (typeof this.props.allbooks == 'object') {
-      if (this.props.allbooks.length)
-        this.props.allbooks.forEach(
+      if (this.props.allbooks.length) {
+        var books = this.props.allbooks
+        if (this.props.view == 'available_books')
+          books = this.props.available_books
+
+        books.forEach(
           (book, i) => {
             var button = []
             var id = i + "." + book.id
@@ -38,20 +43,32 @@ class AllBooks extends React.Component {
               </div>
             )
           })
+      }
       else
         allbooks.push(<div></div>)
+    }
+
+    if (this.props.user) {
+      var active = "mdl-button mdl-js-button mdl-button--raised options-active"
+      var normal = "mdl-button mdl-js-button mdl-button--raised"
+      options = (
+        <div className="text-center">
+          <button 
+            focus="true"
+            onClick={this.props.setViewAvailableBooks}
+            className={this.props.view == 'available_books'?active:normal}>
+            Available Books</button>
+          <button 
+            onClick={this.props.setViewAllBooks}
+            className={this.props.view == 'all_books'?active:normal}>
+            All Books</button>
+        </div>  
+      )
     }
     return (
       <div>
         <div className="text-center view-title">Collection</div>
-        <div className="text-center"> 
-          <button 
-            className="mdl-button mdl-js-button mdl-button--raised">
-            Available Books</button>
-          <button 
-            className="mdl-button mdl-js-button mdl-button--raised">
-            All Books</button>
-        </div>
+        {options}
         <div className="float-left">
           {allbooks}
         </div>
