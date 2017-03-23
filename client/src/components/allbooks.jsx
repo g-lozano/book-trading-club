@@ -5,12 +5,14 @@ class AllBooks extends React.Component {
   render() {
     var allbooks = []
     var options = []
+    var view = []
     if (typeof this.props.allbooks == 'object') {
-      if (this.props.allbooks.length) {
-        var books = this.props.allbooks
-        if (this.props.view == 'available_books')
-          books = this.props.available_books
+      var books = this.props.allbooks
+      if (this.props.view == 'available_books')
+        books = this.props.available_books
 
+      if (books.length) {
+        
         books.forEach(
           (book, i) => {
             var button = []
@@ -19,7 +21,8 @@ class AllBooks extends React.Component {
             if (book.swap_status == 'pending')
               className = "book-button trade-button trade-button-pending" 
             if (this.props.user)
-              if (this.props.user.username != book.owner || this.props.user == null)
+              // show trade button if (user does not own book) and (the book is not requested by another user)
+              if (this.props.user.username != book.owner && (book.swap_status != 'pending' || this.props.user.username == book.swapper))
                 button = (
                   <button 
                     className={className}
@@ -44,8 +47,14 @@ class AllBooks extends React.Component {
             )
           })
       }
-      else
-        allbooks.push(<div></div>)
+      else {
+        allbooks = <div className="text-center"><br/><br/><br/>No books available for swap.</div>
+      }
+      view = (
+        <div className={books.length?"float-left":"text-center"}>
+          {allbooks}
+        </div>
+      )
     }
 
     if (this.props.user) {
@@ -69,9 +78,7 @@ class AllBooks extends React.Component {
       <div>
         <div className="text-center view-title">Collection</div>
         {options}
-        <div className="float-left">
-          {allbooks}
-        </div>
+        {view}
       </div>
     )
   }

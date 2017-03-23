@@ -84,10 +84,14 @@ function BookFunctions() {
     }
 
     this.updateBook = (req, res) => {
+        var swapper = req.session.username
+        if (req.body.swap_status == 'available')
+            swapper = ''
         Books.findOneAndUpdate({
             id: req.body.id
         }, {
-            swap_status: req.body.swap_status
+            swap_status: req.body.swap_status,
+            swapper: swapper
         },
         (err) => {
             if (err) throw err

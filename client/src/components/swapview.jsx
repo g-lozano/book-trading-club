@@ -5,21 +5,52 @@ import axios from 'axios';
 class SwapView extends React.Component {
   constructor(props) {
     super(props)
-    this.state ={
-      allbooks: []
-    }
   }
   getIncoming() {
+    var books = []
+    if (this.props.state.incoming.length) {
+      this.props.state.incoming.forEach(
+        (book, index) => {
+          books.push(
+            <div>
+              <div className="relative book-div">
+                <Book book={book}/>
+              </div>
+              From: {book.owner}<br/>
+              <button>Accept</button>
+            </div>
+          )
+        }
+      )
+    }
+    else
+      books = <div className="text-center"><br/><br/><br/>You have no incoming requests.</div>
     return (
       <div>
-        incoming
+        {books}
       </div>
     )
   }
   getOutgoing() {
+    var books = []
+    if (this.props.state.outgoing.length) {
+      this.props.state.outgoing.forEach(
+        (book, index) => {
+          books.push(
+            <div>
+            <div className="relative book-div">
+              <Book book={book}/>
+            </div>
+            </div>
+          )
+        }
+      )
+    }
+    else
+      books = <div className="text-center"><br/><br/><br/>You have no outgoing requests.</div>
     return (
       <div>
-        outgoing
+        {books}
       </div>
     )
   }
@@ -35,7 +66,7 @@ class SwapView extends React.Component {
     var active = "mdl-button mdl-js-button mdl-button--raised options-active"
     var normal = "mdl-button mdl-js-button mdl-button--raised"
     
-    switch(this.props.swapview) {
+    switch(this.props.state.swapview) {
       case 'incoming':
         swapview = this.getIncoming(); break;
       case 'outgoing':
@@ -45,22 +76,22 @@ class SwapView extends React.Component {
       default:
         swapview = <div></div>; break;
     }
-    
+    console.lo
     return (
       <div>
         <div className="text-center view-title">My Swaps</div>
         <div className="text-center"> 
           <button 
             onClick={this.props.setSwapViewIn} 
-            className={this.props.swapview == 'incoming'?active:normal}>
+            className={this.props.state.swapview == 'incoming'?active:normal}>
             Incoming Swap Requests</button>
           <button 
             onClick={this.props.setSwapViewOut} 
-            className={this.props.swapview == 'outgoing'?active:normal}>
+            className={this.props.state.swapview == 'outgoing'?active:normal}>
             Outgoing Swap Requests</button>
           <button 
             onClick={this.props.setSwapViewHistory} 
-            className={this.props.swapview == 'history'?active:normal}>
+            className={this.props.state.swapview == 'history'?active:normal}>
             Swap History</button>
         </div>
         <div>

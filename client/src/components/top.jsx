@@ -67,15 +67,30 @@ class Top extends React.Component {
         axios.post('/allbooks')
             .then((response) => {
                 var available_books = []
+                var incoming = []
+                var outgoing = []
+                var history = []
                 response.data.books.forEach((book) => {
-                    if (book.swap_status == 'available' && book.owner != this.state.user.username)
-                        available_books.push(book)
+                    if (this.state.user) {
+                        if (book.swap_status == 'available' && book.owner != this.state.user.username)
+                            available_books.push(book)
+                        else if (book.swap_status == 'pending') {
+                            if (book.owner == this.state.user.username)
+                                incoming.push(book)
+                            else if (book.swapper == this.state.user.username)
+                                outgoing.push(book)
+                        }
+                        else if (book.swap_status == 'traded') {
+                            history.push(book)
+                        } 
+                    }
                 })
-                console.log('setallbooks from top: ' + available_books.length)
-                
+
                 this.setState({
                     allbooks: response.data.books,
-                    available_books: available_books
+                    available_books: available_books,
+                    incoming: incoming,
+                    outgoing: outgoing
                 })
             })
     }
@@ -316,13 +331,15 @@ class Top extends React.Component {
             var id = e.target.getAttribute('name').split('.')[1]
             var new_allbooks = this.state.allbooks
             var updated_book = this.state.allbooks[index]
-            
-            if (updated_book.swap_status == 'available')
+
+            if (updated_book.swap_status == 'available') {
                 updated_book.swap_status = 'pending'
-            else
+            }
+            else {
                 updated_book.swap_status = 'available'
-            
+            }
             new_allbooks.splice(index, 1, updated_book)
+            
             var book_info = {
                 id: id,
                 swap_status: updated_book.swap_status
@@ -372,6 +389,7 @@ class Top extends React.Component {
                 />
                 <br/><br/><br/>
                 <View 
+                    state={this.state}
                     view={this.state.view}
                     setLoginMessage={this.setLoginMessage}
                     setSignupMessage={this.setSignupMessage}
