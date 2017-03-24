@@ -98,6 +98,14 @@ function BookFunctions() {
             res.send({msg: 'ok'})
         })
     }
+    
+    this.acceptRequest = (req, res) => {
+        
+    }
+    
+    this.rejectRequest = (req, res) => {
+        
+    }
 }
 
 module.exports = BookFunctions;

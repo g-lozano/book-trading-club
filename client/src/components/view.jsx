@@ -128,6 +128,8 @@ class View extends React.Component {
                 setSwapViewOut={this.props.setSwapViewOut}
                 setSwapViewHistory={this.props.setSwapViewHistory}
                 state={this.props.state}
+                handleAcceptIncoming={this.props.handleAcceptIncoming}
+                handleRejectIncoming={this.props.handleRejectIncoming}
             />
         )
     }

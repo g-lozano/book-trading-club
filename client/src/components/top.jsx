@@ -31,6 +31,8 @@ class Top extends React.Component {
         this.setSwapViewOut = this.setSwapViewOut.bind(this)
         this.setSwapViewHistory = this.setSwapViewHistory.bind(this)
         this.setViewAvailableBooks = this.setViewAvailableBooks.bind(this)
+        this.handleAcceptIncoming = this.handleAcceptIncoming.bind(this)
+        this.handleRejectIncoming = this.handleRejectIncoming.bind(this)
 
         this.state = {
             view: '',
@@ -370,6 +372,46 @@ class Top extends React.Component {
             view: 'available_books'
         })
     }
+    handleAcceptIncoming(e) {
+        var index = e.target.getAttribute('name').split('.')[0]
+        var id = e.target.getAttribute('name').split('.')[1]
+        
+        var book_info = {
+            id: id
+        }
+console.log(index)
+        var new_incoming = this.state.incoming
+        new_incoming.splice(index, 1)
+        
+        this.setState({
+            incoming: new_incoming
+        })
+        
+        axios.post('/acceptrequest', book_info)
+            .then((response) => {
+                alert(response.data.msg)
+            })
+    }
+    handleRejectIncoming(e) {
+        var index = e.target.getAttribute('name').split('.')[0]
+        var id = e.target.getAttribute('name').split('.')[1]
+        
+        var book_info = {
+            id: id
+        }
+        
+        var new_incoming = this.state.incoming
+        new_incoming.splice(index, 1)
+        
+        this.setState({
+            incoming: new_incoming
+        })
+        
+        axios.post('/rejectrequest', book_info)
+            .then((response) => {
+                alert(response.data.msg)
+            })
+    }
     render() {
 
         return (
@@ -417,6 +459,8 @@ class Top extends React.Component {
                     setSwapViewHistory={this.setSwapViewHistory}
                     setViewAvailableBooks={this.setViewAvailableBooks}
                     setViewAllBooks={this.setViewAllBooks}
+                    handleAcceptIncoming={this.handleAcceptIncoming}
+                    handleRejectIncoming={this.handleRejectIncoming}
                 /> 
             </div>
         )

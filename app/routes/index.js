@@ -64,6 +64,12 @@ export default function (app, passport) {
     
   app.route('/updatebook')
     .post(bookFuncs.updateBook)
+  
+  app.route('/acceptrequest')
+    .post(bookFuncs.acceptRequest)
+    
+  app.route('/rejectrequest')
+    .post(bookFuncs.rejectRequest)
 
   // app.route('/api/user/clicks')
 		// .get(isLoggedIn, clickHandler.getClicks)

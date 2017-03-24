@@ -11,13 +11,31 @@ class SwapView extends React.Component {
     if (this.props.state.incoming.length) {
       this.props.state.incoming.forEach(
         (book, index) => {
+          var id = index + '.' + book.id
           books.push(
             <div>
               <div className="relative book-div">
                 <Book book={book}/>
               </div>
-              From: {book.owner}<br/>
-              <button>Accept</button>
+              User "{book.owner}" wants to swap!<br/>
+              <button 
+                name={id}
+                onClick={this.props.handleAcceptIncoming}
+                className="mdl-button mdl-js-button mdl-button--primary"
+                ><i
+                  name={id}
+                  className="material-icons">swap_vertical_circle</i>
+                <span name={id}>Accept</span>
+              </button>
+              <button 
+                name={id}
+                onClick={this.props.handleRejectIncoming}
+                className="mdl-button mdl-js-button mdl-button--primary">
+                <i
+                  name={id}
+                  className="material-icons">highlight_off</i>
+                <span name={id}>Reject</span>
+              </button>
             </div>
           )
         }
