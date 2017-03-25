@@ -100,11 +100,44 @@ function BookFunctions() {
     }
     
     this.acceptRequest = (req, res) => {
-        
+        Books.findOneAndUpdate({
+            id: req.body.id,
+            owner: req.session.username
+        }, {
+            swap_status: 'accepted'
+        },
+        (err) => {
+            if (err) throw err
+            res.send({msg: 'ok'})
+        })
     }
     
     this.rejectRequest = (req, res) => {
-        
+        Books.findOneAndUpdate({
+            id: req.body.id,
+            owner: req.user.session
+        }, {
+            swap_status: 'available',
+            swapper: ''
+        },
+        (err) => {
+            if (err) throw err
+            res.send({msg: 'ok'})
+        })
+    }
+    
+    this.cancelRequest = (req, res) => {
+        Books.findOneAndUpdate({
+            id: req.body.id,
+            swapper: req.session.username
+        }, {
+            swap_status: 'available',
+            swapper: ''
+        },
+        (err) => {
+            if (err) throw err
+            res.send({msg: 'ok'})
+        })
     }
 }
 

@@ -13,7 +13,7 @@ class SwapView extends React.Component {
         (book, index) => {
           var id = index + '.' + book.id
           books.push(
-            <div>
+            <div className="text-center">
               <div className="relative book-div">
                 <Book book={book}/>
               </div>
@@ -54,18 +54,29 @@ class SwapView extends React.Component {
     if (this.props.state.outgoing.length) {
       this.props.state.outgoing.forEach(
         (book, index) => {
+          var id = index + '.' + book.id
           books.push(
-            <div>
+            <div className="text-center">
             <div className="relative book-div">
               <Book book={book}/>
             </div>
+            Request sent to "{book.owner}".<br/>
+            <button 
+                name={id}
+                onClick={this.props.handleCancelOutgoing}
+                className="mdl-button mdl-js-button mdl-button--primary">
+                <i
+                  name={id}
+                  className="material-icons">highlight_off</i>
+                <span name={id}>Cancel Request</span>
+              </button>
             </div>
           )
         }
       )
     }
     else
-      books = <div className="text-center"><br/><br/><br/>You have no outgoing requests.</div>
+      books = <div className="text-center"><br/><br/><br/>You haven't traded any books yet!</div>
     return (
       <div>
         {books}
@@ -73,9 +84,19 @@ class SwapView extends React.Component {
     )
   }
   getHistory() {
+    var books = []
+    if (this.props.state.history.length) {
+      this.props.state.history.forEach(
+        (book, index)=>{
+        
+        }
+      )
+    }
+    else
+      books = <div className="text-center"><br/><br/><br/>You have no incoming requests.</div>
     return (
       <div>
-        history
+        {books}
       </div>
     )
   }
@@ -94,7 +115,7 @@ class SwapView extends React.Component {
       default:
         swapview = <div></div>; break;
     }
-    console.lo
+    
     return (
       <div>
         <div className="text-center view-title">My Swaps</div>

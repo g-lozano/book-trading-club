@@ -130,6 +130,7 @@ class View extends React.Component {
                 state={this.props.state}
                 handleAcceptIncoming={this.props.handleAcceptIncoming}
                 handleRejectIncoming={this.props.handleRejectIncoming}
+                handleCancelOutgoing={this.props.handleCancelOutgoing}
             />
         )
     }

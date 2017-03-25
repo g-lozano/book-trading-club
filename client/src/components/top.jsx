@@ -33,6 +33,7 @@ class Top extends React.Component {
         this.setViewAvailableBooks = this.setViewAvailableBooks.bind(this)
         this.handleAcceptIncoming = this.handleAcceptIncoming.bind(this)
         this.handleRejectIncoming = this.handleRejectIncoming.bind(this)
+        this.handleCancelOutgoing = this.handleCancelOutgoing.bind(this)
 
         this.state = {
             view: '',
@@ -92,7 +93,8 @@ class Top extends React.Component {
                     allbooks: response.data.books,
                     available_books: available_books,
                     incoming: incoming,
-                    outgoing: outgoing
+                    outgoing: outgoing,
+                    history: history
                 })
             })
     }
@@ -379,7 +381,7 @@ class Top extends React.Component {
         var book_info = {
             id: id
         }
-console.log(index)
+
         var new_incoming = this.state.incoming
         new_incoming.splice(index, 1)
         
@@ -408,6 +410,26 @@ console.log(index)
         })
         
         axios.post('/rejectrequest', book_info)
+            .then((response) => {
+                alert(response.data.msg)
+            })
+    }
+    handleCancelOutgoing(e) {
+        var index = e.target.getAttribute('name').split('.')[0]
+        var id = e.target.getAttribute('name').split('.')[1]
+        
+        var book_info = {
+            id: id
+        }
+        
+        var new_outgoing = this.state.outgoing
+        new_outgoing.splice(index, 1)
+        
+        this.setState({
+            outgoing: new_outgoing
+        })
+        
+        axios.post('/cancelrequest', book_info)
             .then((response) => {
                 alert(response.data.msg)
             })
@@ -461,6 +483,7 @@ console.log(index)
                     setViewAllBooks={this.setViewAllBooks}
                     handleAcceptIncoming={this.handleAcceptIncoming}
                     handleRejectIncoming={this.handleRejectIncoming}
+                    handleCancelOutgoing={this.handleCancelOutgoing}
                 /> 
             </div>
         )

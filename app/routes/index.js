@@ -70,6 +70,9 @@ export default function (app, passport) {
     
   app.route('/rejectrequest')
     .post(bookFuncs.rejectRequest)
+  
+  app.route('/cancelrequest')
+    .post(bookFuncs.cancelRequest)
 
   // app.route('/api/user/clicks')
 		// .get(isLoggedIn, clickHandler.getClicks)
